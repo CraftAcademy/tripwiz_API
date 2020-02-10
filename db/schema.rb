@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2020_02_07_170314) do
     t.bigint "trip_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "max_price"
     t.index ["trip_id"], name: "index_activity_types_on_trip_id"
   end
 
