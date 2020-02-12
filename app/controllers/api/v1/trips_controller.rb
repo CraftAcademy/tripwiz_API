@@ -27,6 +27,12 @@ class Api::V1::TripsController < ApplicationController
     render json: response
   end
 
+  def destroy
+    trip_to_destroy = Trip.find(params[:trip])
+    Trip.destroy(trip_to_destroy.id)
+    render head: :ok
+  end
+
   private
 
   def get_destination(params)
