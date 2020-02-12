@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 
 module ActivityCreator
   def create_activities(activity_type, activity_visits, search_keyword)
