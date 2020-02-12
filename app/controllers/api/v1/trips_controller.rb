@@ -30,7 +30,6 @@ class Api::V1::TripsController < ApplicationController
   def destroy
     trip_to_destroy = Trip.find(params[:trip])
     Trip.destroy(trip_to_destroy.id)
-    binding.pry
     render head: :ok
   end
 
