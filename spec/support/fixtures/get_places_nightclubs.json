@@ -1,0 +1,41 @@
+{
+  "results": [
+    {
+      "geometry": {
+        "location": {
+          "lat": 59.3282928,
+          "lng": 18.070308
+        }
+      },
+      "name": "Stockholms Klubb",
+      "place_id": "ChIJZ3Kvw1idX0YRyZj7EjBP_eg",
+      "rating": 3.2,
+      "vicinity": "Strömparterren 3, Stockholm"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 59.3268215,
+          "lng": 18.0717194
+        }
+      },
+      "name": "The Royal Club",
+      "place_id": "ChIJAUpMflidX0YRNj52SJZ6-b0",
+      "rating": 3.2,
+      "vicinity": "Slottsbacken 1, Stockholm"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 59.3295663,
+          "lng": 18.0671633
+        }
+      },
+      "name": "Medelhavsklubben",
+      "place_id": "ChIJ77EGJ1-dX0YRa3zx4WKOYpo",
+      "rating": 3.1,
+      "vicinity": "Fredsgatan 2, Stockholm"
+    }
+  ],
+  "status": "OK"
+}
