@@ -56,17 +56,4 @@ class Api::V1::ActivityTypesController < ApplicationController
       render json: { error: activity_type.errors.full_messages }, status: 422
     end
   end
-
-  def update_activity_type(activity_type_to_update)
-    activity_type_to_update = ActivityType.update(activity_type_to_update.id,
-                                                  activity_type: params.require(:activity_type),
-                                                  trip_id: params.require(:trip),
-                                                  max_price: params[:max_price])
-
-    if ActivityType.find_by(trip_id: params[:trip])[:created_at] != ActivityType.find_by(trip_id: params[:trip])[:updated_at]
-      activity_type_to_update
-    else
-      render json: { error: activity_type_to_update.errors.full_messages }, status: 422
-    end
-  end
 end
