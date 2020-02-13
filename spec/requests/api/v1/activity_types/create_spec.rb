@@ -97,8 +97,8 @@ RSpec.describe 'POST /api/v1/activity_type', type: :request do
       expect(response).to have_http_status 200
     end
 
-    it 'returns 4 restaurants' do
-      expect(response_json.length).to eq 4
+    it 'returns 2 restaurants' do
+      expect(response_json.length).to eq 2
     end
   end
 end

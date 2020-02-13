@@ -43,7 +43,11 @@ class Api::V1::ActivityTypesController < ApplicationController
 
   def set_activity_visits
     if params[:activity_type] == 'restaurant'
-      Trip.find(params[:trip]).days
+      if params[:additional_activity]
+        Trip.find(params[:trip]).days / 2
+      else
+        Trip.find(params[:trip]).days
+      end
     else
       params[:activity_visits]
     end
