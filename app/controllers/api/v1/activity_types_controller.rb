@@ -27,6 +27,18 @@ class Api::V1::ActivityTypesController < ApplicationController
     render json: activities, status: 200
   end
 
+  def destroy
+      if params[:activity_type]
+        activity_type_to_destroy = ActivityType.find_by(trip_id: params[:trip], activity_type: params[:activity_type])
+      else
+        activity_type_to_destroy = ActivityType.find_by(trip_id: params[:trip])
+      end
+      activities_to_destroy = Activity.where(activity_type_id: activity_type_to_destroy)
+      ActivityType.destroy(activity_type_to_destroy.id)
+      Activity.destroy(activities_to_destroy.ids)
+      render head: :ok
+  end
+
   private
 
   def set_activity_visits

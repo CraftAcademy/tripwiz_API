@@ -21,6 +21,11 @@ module WebmockStubs
       .to_return(status: 200, body: fixture_response('get_places_museums.json'))
   end
 
+  def get_google_places_nightclubs_success
+    stub_request(:get, %r|https://maps.googleapis.com/maps/api/place/nearbysearch/|)
+      .to_return(status: 200, body: fixture_response('get_places_nightclubs.json'))
+  end
+
   def get_google_places_restaurants_success
     stub_request(:get, %r|https://maps.googleapis.com/maps/api/place/nearbysearch/|)
       .to_return(status: 200, body: fixture_response('get_places_restaurants.json'))
