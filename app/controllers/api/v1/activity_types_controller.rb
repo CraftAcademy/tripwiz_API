@@ -28,36 +28,44 @@ class Api::V1::ActivityTypesController < ApplicationController
   end
 
   def destroy
-      if params[:activity_type]
-        activity_type_to_destroy = ActivityType.find_by(trip_id: params[:trip], activity_type: params[:activity_type])
-      else
-        activity_type_to_destroy = ActivityType.find_by(trip_id: params[:trip])
-      end
-      activities_to_destroy = Activity.where(activity_type_id: activity_type_to_destroy)
-      ActivityType.destroy(activity_type_to_destroy.id)
-      Activity.destroy(activities_to_destroy.ids)
-      render head: :ok
+    if params[:activity_type]
+      activity_type_to_destroy = ActivityType.find_by(trip_id: params[:trip], activity_type: params[:activity_type])
+    else
+      activity_type_to_destroy = ActivityType.find_by(trip_id: params[:trip])
+    end
+    activities_to_destroy = Activity.where(activity_type_id: activity_type_to_destroy)
+    ActivityType.destroy(activity_type_to_destroy.id)
+    Activity.destroy(activities_to_destroy.ids)
+    render head: :ok
   end
 
   private
 
   def set_activity_visits
     if params[:activity_type] == 'restaurant'
-      Trip.find(params[:trip]).days
+      if params[:additional_activity]
+        Trip.find(params[:trip]).days / 2
+      else
+        Trip.find(params[:trip]).days
+      end
     else
       params[:activity_visits]
     end
   end
 
   def create_activity_type
-    activity_type = ActivityType.create(activity_type: params.require(:activity_type),
-                                        trip_id: params.require(:trip),
-                                        max_price: params[:max_price])
-
-    if activity_type.persisted?
+    if params[:additional_activity]
+      activity_type = ActivityType.find_by(trip_id: params[:trip], activity_type: params[:activity_type])
       activity_type
     else
-      render json: { error: activity_type.errors.full_messages }, status: 422
+      activity_type = ActivityType.create(activity_type: params.require(:activity_type),
+                                          trip_id: params.require(:trip),
+                                          max_price: params[:max_price])
+      if activity_type.persisted?
+        activity_type
+      else
+        render json: { error: activity_type.errors.full_messages }, status: 422
+      end
     end
   end
 end
