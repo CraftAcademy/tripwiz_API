@@ -46,6 +46,9 @@ ActiveRecord::Schema.define(version: 2020_02_14_154626) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "trip_id"
+    t.float "rating"
+    t.string "currency"
+    t.string "description"
   end
 
   create_table "trips", force: :cascade do |t|

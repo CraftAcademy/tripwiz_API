@@ -12,7 +12,7 @@ RSpec.describe 'GET /api/v1/trips', type: :request do
       expect(response).to have_http_status 200
     end
 
-    it 'and returns 3 trip id' do
+    it 'and returns 3 trips' do
       expect(response_json.length).to eq 3
     end
   end
