@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::TripsController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     destination = get_destination(params)
     trip = Trip.create(destination: destination,

@@ -11,6 +11,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rest-client'
 gem 'devise_token_auth'
 gem 'amadeus'
+gem 'omniauth-facebook'
 
 group :development, :test do
   gem 'rspec-rails'
