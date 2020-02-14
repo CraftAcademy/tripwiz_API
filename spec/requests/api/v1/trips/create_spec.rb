@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe 'POST /api/v1/trips', type: :request do
+  let(:user) { create(:user) }
+  let(:credentials) { user.create_new_auth_token }
+  let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
+
   describe 'Succesfully adds coords for destination' do
     before do
       get_geobytes_success
@@ -8,7 +12,7 @@ RSpec.describe 'POST /api/v1/trips', type: :request do
       post '/api/v1/trips',
           params: { lat: '59.3293',
                     lng: '18.0685',
-                    days: 4 }
+                    days: 4 }, headers: headers
     end
 
     it 'returns a 200 response status' do
@@ -21,7 +25,7 @@ RSpec.describe 'POST /api/v1/trips', type: :request do
       get_geobytes_no_lat_lng
 
       post '/api/v1/trips',
-      params: { days: 4 }
+      params: { days: 4 }, headers: headers
     end
 
     it 'returns a 422 response status' do
@@ -40,7 +44,7 @@ RSpec.describe 'POST /api/v1/trips', type: :request do
       post '/api/v1/trips',
       params: { lat: '9.3293',
                 lng: '18.0685',
-                days: 4 }
+                days: 4 }, headers: headers
     end
 
     it 'returns a 422 response status' do
@@ -58,7 +62,7 @@ RSpec.describe 'POST /api/v1/trips', type: :request do
       
       post '/api/v1/trips',
       params: { lat: '59.3293',
-                lng: '18.0685' }
+                lng: '18.0685' }, headers: headers
     end
 
 

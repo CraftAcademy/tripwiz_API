@@ -2,6 +2,9 @@
 
 RSpec.describe 'POST /api/v1/activity_type', type: :request do
   let(:trip) { create(:trip) }
+  let(:user) { create(:user) }
+  let(:credentials) { user.create_new_auth_token }
+  let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
 
   describe 'Successfully creates activity type' do
     before do
@@ -10,7 +13,7 @@ RSpec.describe 'POST /api/v1/activity_type', type: :request do
       post '/api/v1/activity_types',
            params: { activity_type: 'museum',
                      activity_visits: 3,
-                     trip: trip.id }
+                     trip: trip.id }, headers: headers
     end
 
     it 'returns a 200 response status' do
@@ -34,7 +37,7 @@ RSpec.describe 'POST /api/v1/activity_type', type: :request do
            params: { activity_type: 'restaurant',
                      keyword: 'chinese',
                      trip: trip.id,
-                     max_price: '2' }
+                     max_price: '2' }, headers: headers
     end
 
     it 'returns a 200 response status' do
@@ -48,7 +51,7 @@ RSpec.describe 'POST /api/v1/activity_type', type: :request do
 
   describe 'Unsuccesfully when no params' do
     before do
-      post '/api/v1/activity_types'
+      post '/api/v1/activity_types', headers: headers
     end
 
     it 'returns a 422 response status' do
@@ -67,7 +70,7 @@ RSpec.describe 'POST /api/v1/activity_type', type: :request do
       post '/api/v1/activity_types',
            params: { activity_type: 'museum',
                      trip: trip.id,
-                     activity_visits: 4 }
+                     activity_visits: 4 }, headers: headers
     end
 
     it 'returns a 422 response status' do
@@ -90,7 +93,7 @@ RSpec.describe 'POST /api/v1/activity_type', type: :request do
                      keyword: 'chinese',
                      trip: trip.id,
                      max_price: '2',
-                     additional_activity: "yes"  }
+                     additional_activity: "yes"  }, headers: headers
     end
 
     it 'returns a 200 response status' do

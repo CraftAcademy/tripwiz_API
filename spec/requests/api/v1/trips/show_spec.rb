@@ -7,10 +7,13 @@ RSpec.describe 'GET /api/v1/trips/:id', type: :request do
   end
   let!(:activity_type) { create(:activity_type, trip_id: trip.id) }
   let!(:activity) { create_list(:activity, 3, activity_type_id: activity_type.id) }
+  let(:user) { create(:user) }
+  let(:credentials) { user.create_new_auth_token }
+  let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
 
   describe 'Succesfully show trip page' do
     before do
-      get "/api/v1/trips/#{trip.id}"
+      get "/api/v1/trips/#{trip.id}", headers: headers
     end
 
     it 'returns a 200 response status' do
