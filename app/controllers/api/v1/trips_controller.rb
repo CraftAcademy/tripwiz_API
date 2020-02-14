@@ -34,7 +34,7 @@ class Api::V1::TripsController < ApplicationController
   end
 
   def index
-    trips = Trip.all
+    trips = Trip.ids
     render json: trips
   end
 

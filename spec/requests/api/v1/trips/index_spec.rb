@@ -13,7 +13,6 @@ RSpec.describe 'GET /api/v1/trips', type: :request do
     end
 
     it 'and returns 3 trip id' do
-      binding.pry
       expect(response_json.length).to eq 3
     end
   end
