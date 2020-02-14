@@ -2,7 +2,7 @@
 
 class FacebookLoginController < Devise::RegistrationsController
   def create
-    @user = User.from_omniauth(params[:uid], params[:email], params[:provider])
+    @user = User.from_omniauth(params.require(:uid), params.require(:email), params.require(:provider))
     if @user.persisted?
       sign_in @user
       @token = @user.create_token
