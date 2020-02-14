@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'GET /api/v1/trips', type: :request do
+RSpec.describe 'GET /api/v1/trips/:id', type: :request do
   let!(:trip) { create(:trip) }
   3.times do
     let!(:hotel) { create_list(:hotel, 3, trip_id: trip.id) }
