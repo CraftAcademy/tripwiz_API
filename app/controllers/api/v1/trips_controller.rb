@@ -33,6 +33,11 @@ class Api::V1::TripsController < ApplicationController
     render head: :ok
   end
 
+  def index
+    trips = Trip.all
+    render json: trips
+  end
+
   private
 
   def get_destination(params)
