@@ -27,7 +27,10 @@ class Api::V1::HotelsController < ApplicationController
         lng = hotel['hotel']['longitude']
         price = hotel['offers'][0]['price']['total']
         address = hotel['hotel']['address']['lines'][0]
-        url = hotel['offers'][0]['room']['description']['text']
+        url = hotel['hotel']['media'][0]['uri']
+        rating = hotel['hotel']['rating']
+        currency = hotel['offers'][0]['price']['currency']
+        description = hotel['offers'][0]['room']['description']['text']
 
         hotel = Hotel.create(
           name: name,
@@ -36,7 +39,10 @@ class Api::V1::HotelsController < ApplicationController
           price: price,
           address: address,
           url: url,
-          trip_id: params[:trip]
+          trip_id: params[:trip],
+          rating: rating,
+          currency: currency,
+          description: description
         )
         hotels << hotel if hotel.persisted?
       end
