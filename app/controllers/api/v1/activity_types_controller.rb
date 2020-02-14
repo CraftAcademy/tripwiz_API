@@ -19,7 +19,11 @@ class Api::V1::ActivityTypesController < ApplicationController
   end
 
   def index
-    activity_types = ActivityType.where(trip_id: params[:trip])
+    if params[:activity_type] == 'restaurant'
+      activity_types = ActivityType.where(trip_id: params[:trip], activity_type: params[:activity_type])
+    else
+      activity_types = ActivityType.where(trip_id: params[:trip])
+    end
     activities = {}
     activity_types.each do |type|
       activities[type.activity_type] = Activity.where(activity_type_id: type)
