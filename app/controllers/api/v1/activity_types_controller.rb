@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::ActivityTypesController < ApplicationController
+  before_action :authenticate_user!
+
   include ActivityCreator
 
   def create

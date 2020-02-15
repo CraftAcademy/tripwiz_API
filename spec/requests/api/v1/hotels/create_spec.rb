@@ -1,5 +1,8 @@
 RSpec.describe 'POST /api/v1/hotels', type: :request do
   let!(:activity_type) { create(:activity_type) } 
+  let(:user) { create(:user) }
+  let(:credentials) { user.create_new_auth_token }
+  let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
   
   describe 'User can generate hotel suggestions ' do
     let!(:activity) { create_list(:activity, 3, activity_type_id: activity_type.id) } 
@@ -11,7 +14,7 @@ RSpec.describe 'POST /api/v1/hotels', type: :request do
           params: { 
             budget: 5,
             trip: Trip.last.id
-            }
+            }, headers: headers
       end
       
       it 'returns a 200 response status' do

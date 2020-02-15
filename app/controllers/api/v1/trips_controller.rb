@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
 class Api::V1::TripsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     destination = get_destination(params)
     trip = Trip.create(destination: destination,
                        lat: params[:lat],
                        lng: params[:lng],
-                       days: params[:days])
+                       days: params[:days],
+                       user_id: current_user.id)
 
     if trip.persisted?
       render json: trip

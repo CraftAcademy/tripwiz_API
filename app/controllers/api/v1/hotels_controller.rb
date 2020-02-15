@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::HotelsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     activity_type = ActivityType.find_by(trip_id: params[:trip])
 
