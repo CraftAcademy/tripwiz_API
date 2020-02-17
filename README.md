@@ -1,4 +1,4 @@
-# The Reactive Herald Client
+# TripWiz API
 
 [![Coverage Status](https://coveralls.io/repos/github/CraftAcademy/tripwiz_API/badge.svg?branch=development)](https://coveralls.io/github/CraftAcademy/tripwiz_API?branch=development)
 
