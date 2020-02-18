@@ -13,6 +13,8 @@ RSpec.describe 'GET /api/v1/trips/:id', type: :request do
 
   describe 'Succesfully show trip page' do
     before do
+      get_google_image_success
+      
       get "/api/v1/trips/#{trip.id}", headers: headers
     end
 
@@ -30,6 +32,10 @@ RSpec.describe 'GET /api/v1/trips/:id', type: :request do
 
     it 'returns hotels' do
       expect(response_json['hotels'][0]['name']).to eq 'Grand Hotel Stockholm'
+    end
+
+    it 'returns an image' do
+      expect(response_json["image"].length).to eq 190
     end
   end
 end
