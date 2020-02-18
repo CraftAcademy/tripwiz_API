@@ -38,4 +38,5 @@ RSpec.describe 'GET /api/v1/trips/:id', type: :request do
       expect(response_json["image"].length).to eq 190
     end
   end
+  
 end
