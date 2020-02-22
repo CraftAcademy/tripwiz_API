@@ -32,7 +32,7 @@ module WebmockStubs
   end
 
   def get_google_image_success
-    stub_request(:get, 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=photos&input=Stockholm&inputtype=textquery&key=AIzaSyAAA05SJy_5f60NBbYx_-zo8wnj3F8FzI4&types=locality')
+    stub_request(:get, %r{https://maps.googleapis.com/maps/api/place/findplacefromtext/json?})
       .to_return(status: 200, body: fixture_response('get_image.json'))
   end
 
