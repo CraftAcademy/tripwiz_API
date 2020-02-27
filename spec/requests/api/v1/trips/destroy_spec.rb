@@ -33,3 +33,4 @@ RSpec.describe 'DESTROY /api/v1/trip', type: :request do
     end
   end
 end
+
