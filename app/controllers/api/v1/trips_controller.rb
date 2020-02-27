@@ -32,6 +32,8 @@ class Api::V1::TripsController < ApplicationController
   end
 
   def destroy
+    Hotel.where(trip_id: params[:trip]).destroy_all
+    ActivityType.where(trip_id: params[:trip]).destroy_all
     trip_to_destroy = Trip.find(params[:trip])
     Trip.destroy(trip_to_destroy.id)
     render head: :ok
