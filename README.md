@@ -19,11 +19,7 @@ https://tripwiz.netlify.com/
 ## To run locally
 #### Clone repository
 ```
-$ git clone https://github.com/EevanR/tripwiz_API.git
-```
-or
-```
-$ git clone https://github.com/mantanquzzmo/tripwiz_API.git
+$ git clone https://github.com/CraftAcademy/the_reactive_herald_API.git
 ```
 ```
 $ cd tripwiz_API
