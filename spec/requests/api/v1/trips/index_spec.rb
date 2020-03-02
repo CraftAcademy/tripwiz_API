@@ -22,7 +22,7 @@ RSpec.describe 'GET /api/v1/trips', type: :request do
     end
 
     it 'and returns 3 trips' do
-      expect(response_json.length).to eq 3
+      expect(response_json.length).to eq 4
     end
   end
 

@@ -40,6 +40,7 @@ class Api::V1::TripsController < ApplicationController
   end
 
   def index
+    binding.pry
     trips = Trip.last(5)
     render json: trips
   end
