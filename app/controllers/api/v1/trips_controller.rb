@@ -41,13 +41,22 @@ class Api::V1::TripsController < ApplicationController
 
   def index
     trips_to_display = []
-    trips = Trip.all
-    trips.each do |trip|
-      if !trip.hotels.empty?  
-        trips_to_display << trip
+
+    if current_user
+      trips = Trip.where(user_id: current_user.id)
+      trips.each do |trip|
+        if !trip.hotels.empty?  
+          trips_to_display << trip
+        end
+      end
+    else
+      trips = Trip.all
+      trips.each do |trip|
+        if !trip.hotels.empty?  
+          trips_to_display << trip
+        end
       end
     end
-
     render json: trips_to_display.last(5)
   end
 
