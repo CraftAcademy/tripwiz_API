@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'DESTROY /api/v1/trip', type: :request do
   let(:trip) { create(:trip) }
   let(:user) { create(:user) }
