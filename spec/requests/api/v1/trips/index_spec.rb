@@ -2,6 +2,9 @@
 
 RSpec.describe 'GET /api/v1/trips', type: :request do
   let!(:trip) { create_list(:trip, 3) }
+  3.times do
+    let!(:hotel) { create_list(:hotel, 3, trip_id: trip[0].id) }
+  end
   let(:user) { create(:user) }
   let(:credentials) { user.create_new_auth_token }
   let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
@@ -15,8 +18,8 @@ RSpec.describe 'GET /api/v1/trips', type: :request do
       expect(response).to have_http_status 200
     end
 
-    it 'and returns 3 trips' do
-      expect(response_json.length).to eq 3
+    it 'and returns 1 trip that has hotels' do
+      expect(response_json.length).to eq 1
     end
   end
 end
