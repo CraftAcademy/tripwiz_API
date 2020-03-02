@@ -40,9 +40,13 @@ class Api::V1::TripsController < ApplicationController
   end
 
   def index
-    binding.pry
-    trips = Trip.last(5)
-    render json: trips
+    if current_user
+      trips = Trip.where(user_id: current_user.id).last(5)
+      render json: trips
+    else
+      trips = Trip.last(5)
+      render json: trips
+    end
   end
 
   private
