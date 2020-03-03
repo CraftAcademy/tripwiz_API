@@ -16,5 +16,9 @@ RSpec.describe 'POST /api/v1/trips', type: :request do
     it 'returns a 200 response status' do
       expect(response).to have_http_status 200
     end
+
+    it 'returns the posted rating' do
+      expect(response_json["rating"]).to eq 4
+    end
   end
 end

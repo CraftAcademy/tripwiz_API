@@ -10,4 +10,10 @@ RSpec.describe Rating, type: :model do
   describe 'Associations' do
     it { is_expected.to belong_to :trip }
   end
+
+  describe 'Factory' do
+    it 'should have valid Factory' do
+      expect(create(:user)).to be_valid
+    end
+  end
 end

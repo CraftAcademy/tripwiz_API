@@ -26,8 +26,16 @@ class Api::V1::TripsController < ApplicationController
       activities[type.activity_type] = Activity.where(activity_type_id: type)
     end
     hotels = Hotel.where(trip_id: params[:id])
+    ratings = Rating.where(trip_id: params[:id])
+    ratings_total = 0
+    ratings_count = 0
+    ratings.each do |rating|
+      ratings_total += rating.rating
+      ratings_count += 1
+    end
+    rating = ratings_total / ratings_count.to_f
 
-    response = { trip: trip, activity: activities, hotels: hotels, image: image }
+    response = { trip: trip, activity: activities, hotels: hotels, image: image, rating: rating }
     render json: response
   end
 

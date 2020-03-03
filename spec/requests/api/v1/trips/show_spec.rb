@@ -8,8 +8,11 @@ RSpec.describe 'GET /api/v1/trips/:id', type: :request do
   let!(:activity_type) { create(:activity_type, trip_id: trip.id) }
   let!(:activity) { create_list(:activity, 3, activity_type_id: activity_type.id) }
   let(:user) { create(:user) }
+  let(:user2) { create(:user) }
   let(:credentials) { user.create_new_auth_token }
   let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
+  let!(:rating) { create(:rating, trip_id: trip.id, user_id: user.id) }
+  let!(:rating2) { create(:rating, trip_id: trip.id, user_id: user2.id, rating: 3) }
 
   describe 'Succesfully show trip page' do
     before do
@@ -36,6 +39,10 @@ RSpec.describe 'GET /api/v1/trips/:id', type: :request do
 
     it 'returns an image' do
       expect(response_json["image"].length).to eq 190
+    end
+
+    it 'returns an average rating' do
+      expect(response_json["rating"]).to eq 3.5
     end
   end
   
