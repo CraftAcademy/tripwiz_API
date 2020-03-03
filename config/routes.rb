@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       delete 'activity_types', to: 'activity_types#destroy'
       resources :hotels, only: %i[create index]
       delete 'hotels', to: 'hotels#destroy'
+      resources :ratings, only: %i[create]
     end
   end
 end
