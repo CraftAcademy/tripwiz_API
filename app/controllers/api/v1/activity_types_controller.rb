@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V1::ActivityTypesController < ApplicationController
-
   include ActivityCreator
 
   def create
