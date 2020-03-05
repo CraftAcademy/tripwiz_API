@@ -4,9 +4,9 @@ class Api::V1::RatingsController < ApplicationController
   def create
     :authenticate_user!
 
-    trips_to_rate = Rating.where(trip_id: params[:trip])
+    trip_previous_ratings = Rating.where(trip_id: params[:trip])
 
-    trips_to_rate.each do |trip|
+    trip_previous_ratings.each do |trip|
       if trip.user_id == current_user.id
         render json: { error: 'Trip already rated, please update' }, status: 403
         return
@@ -24,4 +24,11 @@ class Api::V1::RatingsController < ApplicationController
       render json: { error: rating.errors.full_messages }, status: 422
     end
   end
+
+  def show
+    ratings = Rating.where(trip_id: params[:id])
+
+    render json: ratings[0]
+  end
+
 end
