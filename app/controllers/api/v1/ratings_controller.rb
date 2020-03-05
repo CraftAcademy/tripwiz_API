@@ -4,6 +4,7 @@ class Api::V1::RatingsController < ApplicationController
   def create
     :authenticate_user!
 
+
     trips_to_rate = Rating.where(trip_id: params[:trip])
     trips_to_rate.each do |trip|
       if trip.user_id == current_user.id
