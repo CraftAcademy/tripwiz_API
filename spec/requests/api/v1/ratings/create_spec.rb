@@ -10,15 +10,14 @@ RSpec.describe 'POST /api/v1/trips', type: :request do
     before do
       post '/api/v1/ratings',
            params: { trip: trip.id,
-                     rating: 4 }, headers: headers
+                     destination_rating: 4,
+                     activities_rating: 4,
+                     restaurants_rating: 4,
+                     hotel_rating: 4 }, headers: headers
     end
 
     it 'returns a 200 response status' do
       expect(response).to have_http_status 200
-    end
-
-    it 'returns the posted rating' do
-      expect(response_json["rating"]).to eq 4
     end
   end
 
@@ -27,18 +26,20 @@ RSpec.describe 'POST /api/v1/trips', type: :request do
     before do
       post '/api/v1/ratings',
            params: { trip: trip.id,
-                     rating: 4 }, headers: headers
+                     destination_rating: 4,
+                     activities_rating: 4,
+                     restaurants_rating: 4,
+                     hotel_rating: 4 }, headers: headers
     end
 
-    it 'returns a 200 response status' do
+    it 'returns a 403 response status' do
       expect(response).to have_http_status 403
     end
 
     it 'returns the posted rating' do
-      expect(response_json["error"]).to eq "Trip already rated by this"
+      expect(response_json['error']).to eq 'Trip already rated by this'
     end
   end
-
 
   describe 'Cant rate trip when no trip.id is sent in' do
     before do
@@ -51,7 +52,7 @@ RSpec.describe 'POST /api/v1/trips', type: :request do
     end
 
     it 'returns the posted rating' do
-      expect(response_json["error"][0]).to eq "Rating can't be blank"
+      expect(response_json['error'][0]).to eq "Rating can't be blank"
     end
   end
 end

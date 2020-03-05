@@ -4,6 +4,9 @@ FactoryBot.define do
   factory :rating do
     trip_id { 5 }
     user_id { 5 }
-    rating { 4 }
+    destination_rating { 4 }
+    activities_rating { 4 }
+    restaurants_rating { 4 }
+    hotel_rating { 4 }
   end
 end

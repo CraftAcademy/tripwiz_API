@@ -56,7 +56,10 @@ ActiveRecord::Schema.define(version: 2020_03_03_132124) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "trip_id"
     t.integer "user_id"
-    t.integer "rating"
+    t.integer "destination_rating"
+    t.integer "activities_rating"
+    t.integer "restaurants_rating"
+    t.integer "hotel_rating"
   end
 
   create_table "trips", force: :cascade do |t|
