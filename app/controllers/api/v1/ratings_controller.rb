@@ -31,4 +31,17 @@ class Api::V1::RatingsController < ApplicationController
     render json: ratings[0]
   end
 
+  def update
+    :authenticate_user!
+    rating_to_update = Rating.where(trip_id: params[:id])
+    rating_to_update.update(update_params)
+
+    render json: rating_to_update[0], status: 200
+  end
+
+  private
+
+  def update_params
+    params.permit(:destination_rating, :activities_rating, :restaurants_rating, :hotel_rating).select { |k, v| !v.nil? }
+  end
 end
