@@ -22,14 +22,17 @@ RSpec.describe 'POST /api/v1/trips', type: :request do
   end
 
   describe 'Cannot rate a trip twice' do
-    let!(:rating) { create(:rating, trip_id: trip.id, user_id: user.id) }
+    let!(:rating) do
+      create(:rating, trip_id: trip.id, user_id: user.id,
+                      destination_rating: 4,
+                      activities_rating: nil,
+                      restaurants_rating: nil,
+                      hotel_rating: nil)
+    end
     before do
       post '/api/v1/ratings',
            params: { trip: trip.id,
-                     destination_rating: 4,
-                     activities_rating: 4,
-                     restaurants_rating: 4,
-                     hotel_rating: 4 }, headers: headers
+                     destination_rating: 4 }, headers: headers
     end
 
     it 'returns a 403 response status' do
@@ -37,22 +40,7 @@ RSpec.describe 'POST /api/v1/trips', type: :request do
     end
 
     it 'returns the posted rating' do
-      expect(response_json['error']).to eq 'Trip already rated by this'
-    end
-  end
-
-  describe 'Cant rate trip when no trip.id is sent in' do
-    before do
-      post '/api/v1/ratings',
-           params: { trip: trip.id }, headers: headers
-    end
-
-    it 'returns a 200 response status' do
-      expect(response).to have_http_status 422
-    end
-
-    it 'returns the posted rating' do
-      expect(response_json['error'][0]).to eq "Rating can't be blank"
+      expect(response_json['error']).to eq 'Trip already rated, please update'
     end
   end
 end
