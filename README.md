@@ -2,7 +2,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/CraftAcademy/tripwiz_API/badge.svg?branch=development)](https://coveralls.io/github/CraftAcademy/tripwiz_API?branch=development)
 
-TripWiz is a trip planner, mainly for city get-aways, that provides the user with a custom itinerary based on selected data. User authentication through Facebook, and the client interface is built with React, while the backend is built in Rails.
+TripWiz is a trip planner, mainly for city get-aways, where a suggested itinerary is provided to you based on a few of your preferences. User authentication is through facebook login, and the client interface is built on React with redux, while the backend is Rails with various google and amedeus API's attached.
 
 ## Deployed Site
 https://tripwiz.netlify.com/
@@ -19,7 +19,9 @@ https://tripwiz.netlify.com/
 ## To run locally
 #### Clone repository
 ```
-$ git clone https://github.com/mantanquzzmo/tripwiz_API.git
+$ git clone https://github.com/CraftAcademy/the_reactive_herald_API.git
+```
+```
 $ cd tripwiz_API
 ```
 

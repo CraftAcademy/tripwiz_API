@@ -5,6 +5,9 @@ class Api::V1::TripsController < ApplicationController
   def create
     :authenticate_user!
     destination = get_destination(params)
+    if destination == "N/A"
+      destination = params[:lat][0, 5] + "," + params[:lng][0, 5]
+    end
     trip = Trip.create(destination: destination,
                        lat: params[:lat],
                        lng: params[:lng],
@@ -49,21 +52,32 @@ class Api::V1::TripsController < ApplicationController
 
   def index
     trips_to_display = []
-    trips = Trip.all
-    trips.each do |trip|
-      if !trip.hotels.empty?  
-        trips_to_display << trip
+
+    if current_user
+      trips = Trip.where(user_id: current_user.id)
+      trips.each do |trip|
+        if !trip.hotels.empty?  
+          trips_to_display << trip
+        end
+      end
+    else
+      trips = Trip.all
+      trips.each do |trip|
+        if !trip.hotels.empty?  
+          trips_to_display << trip
+        end
       end
     end
-
     render json: trips_to_display.last(5)
   end
 
   private
 
   def get_destination(params)
-    response = JSON.parse RestClient.get "http://gd.geobytes.com/GetNearbyCities?radius='1500'&Latitude=#{params[:lat]}&Longitude=#{params[:lng]}&limit=1"
+    response = JSON.parse RestClient::Request.execute(method: :get, url: "http://gd.geobytes.com/GetNearbyCities?radius='1500'&Latitude=#{params[:lat]}&Longitude=#{params[:lng]}&limit=1", open_timeout: 4, timeout: 4)
     destination = response[0][1]
+  rescue RestClient::ExceptionWithResponse => e
+    destination = "N/A"
   end
 
   def get_trip_image(destination)
