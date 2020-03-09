@@ -8,6 +8,7 @@ RSpec.describe 'GET /api/v1/trips/:id', type: :request do
   let!(:activity_type) { create(:activity_type, trip_id: trip.id) }
   let!(:activity) { create_list(:activity, 3, activity_type_id: activity_type.id) }
   let(:user) { create(:user) }
+  let(:user2) { create(:user) }
   let(:credentials) { user.create_new_auth_token }
   let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
 
@@ -38,5 +39,4 @@ RSpec.describe 'GET /api/v1/trips/:id', type: :request do
       expect(response_json["image"].length).to eq 190
     end
   end
-  
 end
