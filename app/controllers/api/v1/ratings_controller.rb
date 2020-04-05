@@ -46,6 +46,11 @@ class Api::V1::RatingsController < ApplicationController
     render json: rating_to_update[0], status: 200
   end
 
+  def index
+    binding.pry
+
+  end
+
   private
 
   def update_params
