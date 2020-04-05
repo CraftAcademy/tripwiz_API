@@ -17,22 +17,14 @@ RSpec.describe 'GET /api/v1/trips/:id', type: :request do
       expect(response).to have_http_status 200
     end
 
-    it 'returns ratings' do
-      expect(response_json['destination_rating']).to eq 4
-    end
-  end
-
-  describe 'Succesfully show ratings when all isnt rated' do
-    before do
-      get "/api/v1/ratings/#{trip2.id}"
+    it 'returns destination' do
+      expect(response_json["destination"][1]).to eq "Stockholm"
     end
 
-    it 'returns a 200 response status' do
-      expect(response).to have_http_status 200
+    it 'returns destination' do
+      binding.pry
+      expect(response_json["destination"][1]).to eq "Stockholm"
     end
 
-    it 'returns incompleted ratings as well' do
-      expect(response_json['destination_rating']).to eq nil
-    end
   end
 end
