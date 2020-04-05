@@ -47,12 +47,15 @@ class Api::V1::RatingsController < ApplicationController
   end
 
   def index
-    binding.pry
+    destination_index = Rating.where.not(destination_rating: nil).last(3)
+    activities_index = Rating.where.not(activities_rating: nil).last(3)
+    restaurants_index = Rating.where.not(restaurants_rating: nil).last(3)
+    hotel_index = Rating.where.not(hotel_rating: nil).last(3)
 
+    ratings = [destination_index, activities_index, restaurants_index, hotel_index]
   end
 
   private
-
   def update_params
     params.permit(:destination_rating, :activities_rating, :restaurants_rating, :hotel_rating).reject { |_k, v| v.nil? }
   end
