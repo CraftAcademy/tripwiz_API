@@ -47,32 +47,29 @@ class Api::V1::RatingsController < ApplicationController
   end
 
   def index
-    destination_ratings = Rating.where.not(destination_rating: nil).last(3)
-    destination_index = []
+    destination_ratings = Rating.where.not(destination_rating: nil).order("destination_rating").reverse_order.limit(3)
+    destination_index = {}
     destination_ratings.each do |rating|
-      destination_index << rating
-      destination_index << Trip.find(rating.trip_id).destination
+      destination_index = { trip: rating.trip_id, rating: rating.destination_rating, destination: Trip.find(rating.trip_id).destination, days: Trip.find(rating.trip_id).days }
     end
 
-    activities_ratings = Rating.where.not(activities_rating: nil).last(3)
-    activities_index = []
+    activities_ratings = Rating.where.not(activities_rating: nil).order("activities_rating").reverse_order.limit(3)
+    activities_index = {}
     activities_ratings.each do |rating|
-      activities_index << rating
-      activities_index << Trip.find(rating.trip_id).destination
+      binding.pry
+      activities_index = { trip: rating.trip_id, rating: rating.activities_rating, destination: Trip.find(rating.trip_id).destination, activity: ActivityType.where(trip_id: rating.trip_id)[0].activity_type }
     end
 
     restaurants_ratings = Rating.where.not(restaurants_rating: nil).last(3)
     restaurants_index = []
     restaurants_ratings.each do |rating|
-      restaurants_index << rating
-      restaurants_index << Trip.find(rating.trip_id).destination
+      restaurants_index << [rating, Trip.find(rating.trip_id).destination]
     end
 
     hotel_ratings = Rating.where.not(hotel_rating: nil).last(3)
     hotel_index = []
     hotel_ratings.each do |rating|
-      hotel_index << rating
-      hotel_index << Trip.find(rating.trip_id).destination
+      hotel_index << [rating, Trip.find(rating.trip_id).destination]
     end
 
     ratings = {destination: destination_index, activities: activities_index, restaurants: restaurants_index, hotel: hotel_index}
