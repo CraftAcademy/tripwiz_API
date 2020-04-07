@@ -56,20 +56,19 @@ class Api::V1::RatingsController < ApplicationController
     activities_ratings = Rating.where.not(activities_rating: nil).order("activities_rating").reverse_order.limit(3)
     activities_index = {}
     activities_ratings.each do |rating|
-      binding.pry
       activities_index = { trip: rating.trip_id, rating: rating.activities_rating, destination: Trip.find(rating.trip_id).destination, activity: ActivityType.where(trip_id: rating.trip_id)[0].activity_type }
     end
 
     restaurants_ratings = Rating.where.not(restaurants_rating: nil).last(3)
-    restaurants_index = []
+    restaurants_index = {}
     restaurants_ratings.each do |rating|
-      restaurants_index << [rating, Trip.find(rating.trip_id).destination]
+      restaurants_index = { trip: rating.trip_id, rating: rating.restaurants_rating, destination: Trip.find(rating.trip_id).destination }
     end
 
     hotel_ratings = Rating.where.not(hotel_rating: nil).last(3)
-    hotel_index = []
+    hotel_index = {}
     hotel_ratings.each do |rating|
-      hotel_index << [rating, Trip.find(rating.trip_id).destination]
+      hotel_index = { trip: rating.trip_id, rating: rating.hotel_rating, destination: Trip.find(rating.trip_id).destination }
     end
 
     ratings = {destination: destination_index, activities: activities_index, restaurants: restaurants_index, hotel: hotel_index}

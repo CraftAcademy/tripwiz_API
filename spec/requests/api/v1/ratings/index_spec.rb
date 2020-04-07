@@ -10,6 +10,8 @@ RSpec.describe 'GET /api/v1/trips/:id', type: :request do
   let!(:rating2) { create(:rating, trip_id: trip2.id, user_id: user2.id, destination_rating: 2) }
   let!(:rating3) { create(:rating, trip_id: trip3.id, user_id: user2.id, destination_rating: 1) }
   let!(:activity_type) { create(:activity_type, trip_id: trip.id ) }
+  let!(:activity_type2) { create(:activity_type, trip_id: trip2.id ) }
+  let!(:activity_type3) { create(:activity_type, trip_id: trip3.id ) }
   let!(:activity) { create_list(:activity, 3, activity_type_id: activity_type.id) }
 
   describe 'Succesfully sends index of ratings' do
@@ -22,11 +24,11 @@ RSpec.describe 'GET /api/v1/trips/:id', type: :request do
     end
 
     it 'returns destination' do
-      expect(response_json["destination"][1]).to eq "Stockholm"
+      expect(response_json["destination"]["destination"]).to eq "Stockholm"
     end
 
     it 'returns destination' do
-      expect(response_json["destination"][1]).to eq "Stockholm"
+      expect(response_json["destination"]["rating"]).to eq 1
     end
 
   end
