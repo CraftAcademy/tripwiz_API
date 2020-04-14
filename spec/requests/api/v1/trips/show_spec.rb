@@ -11,6 +11,7 @@ RSpec.describe 'GET /api/v1/trips/:id', type: :request do
   let(:user2) { create(:user) }
   let(:credentials) { user.create_new_auth_token }
   let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
+  let!(:rating) { create(:rating, trip_id: trip.id)}
 
   describe 'Succesfully show trip page' do
     before do
