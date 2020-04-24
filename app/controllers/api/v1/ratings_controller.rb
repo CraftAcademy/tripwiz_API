@@ -60,13 +60,13 @@ class Api::V1::RatingsController < ApplicationController
       activities_index << { trip: rating.trip_id, rating: rating.activities_rating, destination: Trip.find(rating.trip_id).destination, activity: ActivityType.where(trip_id: rating.trip_id)[0].activity_type }
     end
 
-    restaurants_ratings = Rating.where.not(restaurants_rating: nil).last(3)
+    restaurants_ratings = Rating.where.not(restaurants_rating: nil).order("restaurants_rating").reverse_order.limit(3)
     restaurants_index = []
     restaurants_ratings.each do |rating|
       restaurants_index << { trip: rating.trip_id, rating: rating.restaurants_rating, destination: Trip.find(rating.trip_id).destination }
     end
 
-    hotel_ratings = Rating.where.not(hotel_rating: nil).last(3)
+    hotel_ratings = Rating.where.not(hotel_rating: nil).order("hotel_rating").reverse_order.limit(3)
     hotel_index = []
     hotel_ratings.each do |rating|
       hotel_index << { trip: rating.trip_id, rating: rating.hotel_rating, destination: Trip.find(rating.trip_id).destination }

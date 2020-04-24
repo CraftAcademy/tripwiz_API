@@ -7,7 +7,7 @@ RSpec.describe 'GET /api/v1/trips/:id', type: :request do
   let(:trip2) { create(:trip, destination: "Prague") }
   let(:trip3) { create(:trip, destination: "St Petersburg") }
   let(:user2) { create(:user) }
-  let!(:rating2) { create(:rating, trip_id: trip2.id, user_id: user2.id, destination_rating: 2) }
+  let!(:rating2) { create(:rating, trip_id: trip2.id, user_id: user2.id, destination_rating: 2, restaurants_rating: 3) }
   let!(:rating3) { create(:rating, trip_id: trip3.id, user_id: user2.id, destination_rating: 1) }
   let!(:activity_type) { create(:activity_type, trip_id: trip.id ) }
   let!(:activity_type2) { create(:activity_type, trip_id: trip2.id ) }
